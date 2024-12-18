@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import birimFiyatlarData from '../src/data/birimFiyatlar.json'
+import birimFiyatlarData from './data/birimFiyatlar.json' // Yolu düzelttik
 
 // TypeScript interface tanımlamaları
 interface BirimFiyat {
@@ -18,7 +18,7 @@ function App() {
   const handlePozChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value
     setSelectedPoz(selectedValue)
-    const birimFiyat = birimFiyatlarData.find(item => item.poz === selectedValue)?.birimFiyat || null
+    const birimFiyat = birimFiyatlarData.find((item: BirimFiyat) => item.poz === selectedValue)?.birimFiyat || null
     setSelectedBirimFiyat(birimFiyat)
     calculateSonuc(miktar, birimFiyat)
   }
