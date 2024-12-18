@@ -1,12 +1,24 @@
 import { useState } from 'react'
 import './App.css'
-import birimFiyatlarData from './data/birimFiyatlar.json' assert { type: 'json' }
+
+// JSON dosyasını import et
+import data from './data/birimFiyatlar.json'
+
+// TypeScript interface tanımlamaları
+interface BirimFiyat {
+  poz: string;
+  tanim: string;
+  birimFiyat: number;
+}
 
 function App() {
   const [selectedPoz, setSelectedPoz] = useState('')
   const [selectedBirimFiyat, setSelectedBirimFiyat] = useState<number | null>(null)
   const [miktar, setMiktar] = useState<number>(0)
   const [sonuc, setSonuc] = useState<number | null>(null)
+
+  // JSON verisini tipli olarak kullan
+  const birimFiyatlarData: BirimFiyat[] = data
 
   const handlePozChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value
@@ -48,7 +60,7 @@ function App() {
                     onChange={handlePozChange}
                   >
                     <option value="">Poz Seçin</option>
-                    {birimFiyatlarData.map((item) => (
+                    {birimFiyatlarData.map((item: BirimFiyat) => (
                       <option key={item.poz} value={item.poz}>
                         {item.poz} - {item.tanim}
                       </option>
